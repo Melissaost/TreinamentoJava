@@ -5,6 +5,7 @@ import br.jus.tjba.api.push.usuario.model.dto.UsuarioDTO;
 import br.jus.tjba.api.push.usuario.model.mapper.UsuarioMapper;
 import br.jus.tjba.api.push.usuario.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,6 +16,9 @@ public class UsuarioService {
     @Autowired
     private UsuarioRepository usuarioRepository;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     public List<Usuario> findAll() {
         return usuarioRepository.findAll();
     }
@@ -24,7 +28,7 @@ public class UsuarioService {
     }
 
     public Usuario save(UsuarioDTO usuarioDTO) {
-        Usuario usuario = UsuarioMapper.mapUsuarioDTOToUsuario(usuarioDTO);
+        Usuario usuario = UsuarioMapper.mapUsuarioDTOToUsuario(usuarioDTO, passwordEncoder);
         return usuarioRepository.save(usuario);
     }
 

@@ -1,4 +1,4 @@
-package br.jus.tjba.api.push.usuario.infra;
+package br.jus.tjba.api.push.usuario.infra.exception;
 
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.http.ResponseEntity;
