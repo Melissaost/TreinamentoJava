@@ -39,4 +39,8 @@ public class UsuarioProcessoSistemaService {
         usuarioProcessoSistemaRepository.save(ups);
         return ups;
     }
+
+    public void desassociarProcesso(Long id) {
+        usuarioProcessoSistemaRepository.deleteById(id);
+    }
 }

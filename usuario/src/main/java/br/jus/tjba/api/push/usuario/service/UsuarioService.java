@@ -19,8 +19,8 @@ public class UsuarioService {
         return usuarioRepository.findAll();
     }
 
-    public Optional<Usuario> findById(Long id) {
-        return usuarioRepository.findById(id);
+    public Usuario findById(Long id) {
+        return usuarioRepository.getReferenceById(id);
     }
 
     public Usuario save(UsuarioDTO usuarioDTO) {
