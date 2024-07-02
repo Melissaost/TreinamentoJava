@@ -1,0 +1,16 @@
+version: '1'
+services:
+  sqlTreinamentoJava:
+    image: mysql:8.0.32
+    container_name: sqlTreinamentoJava
+    ports:
+      - "3308:3308"
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456
+      MYSQL_DATABASE: treinamento_java_db  # Define o nome do banco de dados
+    command: ["--port=3308", "--init-file=/docker-entrypoint-initdb.d/init.sql"]  # Arquivo SQL de inicialização
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql:ro  # Monta o arquivo SQL
+
+volumes:
+  mysql_data:
