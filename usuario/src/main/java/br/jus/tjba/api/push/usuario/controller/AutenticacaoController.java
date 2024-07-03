@@ -2,8 +2,8 @@ package br.jus.tjba.api.push.usuario.controller;
 
 import br.jus.tjba.api.push.usuario.infra.security.TokenService;
 import br.jus.tjba.api.push.usuario.model.Usuario;
-import br.jus.tjba.api.push.usuario.model.dto.DadosAutenticacao;
-import br.jus.tjba.api.push.usuario.model.dto.DadosTokenJWT;
+import br.jus.tjba.api.push.usuario.dto.DadosAutenticacao;
+import br.jus.tjba.api.push.usuario.dto.DadosTokenJWT;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

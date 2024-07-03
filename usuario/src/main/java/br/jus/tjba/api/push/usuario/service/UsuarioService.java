@@ -1,9 +1,7 @@
 package br.jus.tjba.api.push.usuario.service;
 
+import br.jus.tjba.api.push.usuario.dto.*;
 import br.jus.tjba.api.push.usuario.model.Usuario;
-import br.jus.tjba.api.push.usuario.model.dto.PageableSearchUsuarios;
-import br.jus.tjba.api.push.usuario.model.dto.UsuarioDTO;
-import br.jus.tjba.api.push.usuario.model.dto.UsuarioResponse;
 import br.jus.tjba.api.push.usuario.model.mapper.UsuarioMapper;
 import br.jus.tjba.api.push.usuario.repository.UsuarioRepository;
 import org.springframework.data.domain.Page;
@@ -15,7 +13,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -48,5 +45,10 @@ public class UsuarioService {
 
     public void deleteById(Long id) {
         usuarioRepository.deleteById(id);
+    }
+
+    public List<UsuarioSistemaDTO> getAllUsuariosSistema(RequestUsuarioSistema request) {
+        List<Usuario> usuarioList = usuarioRepository.findBySistemaAndProcesso(request.siglaSistema(), request.numeroProcesso());
+        return usuarioList.stream().map(UsuarioSistemaDTO::new).toList();
     }
 }

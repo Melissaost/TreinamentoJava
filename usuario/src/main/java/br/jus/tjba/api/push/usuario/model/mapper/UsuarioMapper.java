@@ -1,7 +1,7 @@
 package br.jus.tjba.api.push.usuario.model.mapper;
 
 import br.jus.tjba.api.push.usuario.model.Usuario;
-import br.jus.tjba.api.push.usuario.model.dto.UsuarioDTO;
+import br.jus.tjba.api.push.usuario.dto.UsuarioDTO;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 public interface UsuarioMapper {

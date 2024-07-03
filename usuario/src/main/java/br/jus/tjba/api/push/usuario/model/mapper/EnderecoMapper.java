@@ -1,7 +1,7 @@
 package br.jus.tjba.api.push.usuario.model.mapper;
 
 import br.jus.tjba.api.push.usuario.model.Endereco;
-import br.jus.tjba.api.push.usuario.model.dto.EnderecoDTO;
+import br.jus.tjba.api.push.usuario.dto.EnderecoDTO;
 
 public interface EnderecoMapper {
 

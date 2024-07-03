@@ -1,4 +1,4 @@
-package br.jus.tjba.api.push.usuario.model.dto;
+package br.jus.tjba.api.push.usuario.dto;
 
 import br.jus.tjba.api.push.usuario.model.Usuario;
 import java.util.List;

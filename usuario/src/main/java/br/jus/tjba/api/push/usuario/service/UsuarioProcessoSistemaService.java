@@ -3,7 +3,7 @@ package br.jus.tjba.api.push.usuario.service;
 import br.jus.tjba.api.push.usuario.model.Sistema;
 import br.jus.tjba.api.push.usuario.model.Usuario;
 import br.jus.tjba.api.push.usuario.model.UsuarioProcessoSistema;
-import br.jus.tjba.api.push.usuario.model.dto.UsuarioProcessoSistemaDTO;
+import br.jus.tjba.api.push.usuario.dto.UsuarioProcessoSistemaDTO;
 import br.jus.tjba.api.push.usuario.repository.SistemaRepository;
 import br.jus.tjba.api.push.usuario.repository.UsuarioProcessoSistemaRepository;
 import br.jus.tjba.api.push.usuario.repository.UsuarioRepository;

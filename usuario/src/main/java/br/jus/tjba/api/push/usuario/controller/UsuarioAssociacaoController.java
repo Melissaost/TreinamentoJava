@@ -1,7 +1,7 @@
 package br.jus.tjba.api.push.usuario.controller;
 
 import br.jus.tjba.api.push.usuario.model.UsuarioProcessoSistema;
-import br.jus.tjba.api.push.usuario.model.dto.UsuarioProcessoSistemaDTO;
+import br.jus.tjba.api.push.usuario.dto.UsuarioProcessoSistemaDTO;
 import br.jus.tjba.api.push.usuario.service.UsuarioProcessoSistemaService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.transaction.Transactional;
