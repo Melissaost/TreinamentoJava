@@ -28,14 +28,14 @@ public class MensagemPendenteController {
         return mensagemPendenteService.findAll();
     }
 
-    @PostMapping("/")
+    @PostMapping("/save")
     public MensagemPendente save(@RequestBody MensagemPendente mensagemPendente) {
         return mensagemPendenteService.save(mensagemPendente);
     }
 
     @PostMapping("/sinalizar")
-    public ResponseEntity<List<UsuarioSistemaDTO>> sinalizar(@RequestParam String siglaSistema, @RequestParam String numeroProcesso, @RequestParam String mensagem) {
-        List<UsuarioSistemaDTO> usuarios = publicacaoService.publicarMensagem(siglaSistema, numeroProcesso, mensagem);
+    public ResponseEntity<List<UsuarioSistemaDTO>> sinalizar(@RequestParam String siglaSistema, @RequestParam String numeroProcesso) {
+        List<UsuarioSistemaDTO> usuarios = publicacaoService.publicarMensagem(siglaSistema, numeroProcesso);
         return ResponseEntity.ok(usuarios);
     }
 }

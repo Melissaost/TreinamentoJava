@@ -34,8 +34,8 @@ public class UsuarioController {
     }
 
     @GetMapping("/lista-usuario-sistema")
-    public ResponseEntity<List<UsuarioSistemaDTO>> getAllUsuariosSistema(@RequestBody RequestUsuarioSistema request){
-        List<UsuarioSistemaDTO> usuariosList = usuarioService.getAllUsuariosSistema(request);
+    public ResponseEntity<List<UsuarioSistemaDTO>> getAllUsuariosSistema(@RequestParam String siglaSistema, @RequestParam String numeroProcesso){
+        List<UsuarioSistemaDTO> usuariosList = usuarioService.getAllUsuariosSistema(siglaSistema, numeroProcesso);
         return ResponseEntity.ok(usuariosList);
     }
 

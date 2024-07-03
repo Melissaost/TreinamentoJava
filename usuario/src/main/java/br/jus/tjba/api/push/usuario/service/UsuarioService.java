@@ -10,6 +10,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,8 +48,8 @@ public class UsuarioService {
         usuarioRepository.deleteById(id);
     }
 
-    public List<UsuarioSistemaDTO> getAllUsuariosSistema(RequestUsuarioSistema request) {
-        List<Usuario> usuarioList = usuarioRepository.findBySistemaAndProcesso(request.siglaSistema(), request.numeroProcesso());
+    public List<UsuarioSistemaDTO> getAllUsuariosSistema(String siglaSistema, String numeroProcesso) {
+        List<Usuario> usuarioList = usuarioRepository.findBySistemaAndProcesso(siglaSistema, numeroProcesso);
         return usuarioList.stream().map(UsuarioSistemaDTO::new).toList();
     }
 }
