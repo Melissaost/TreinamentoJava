@@ -1,9 +1,7 @@
 package br.jus.tjba.api.push.usuario.model;
 
 import jakarta.persistence.*;
-import lombok.Builder;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 
 import java.util.List;
 
@@ -11,6 +9,8 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = false)
 @Entity
 @Table(name = "SISTEMA")
+@AllArgsConstructor
+@NoArgsConstructor
 @Builder
 public class Sistema {
     @Id

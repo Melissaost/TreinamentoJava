@@ -1,15 +1,22 @@
 package br.jus.tjba.api.push.usuario.service;
 
 import br.jus.tjba.api.push.usuario.model.Usuario;
+import br.jus.tjba.api.push.usuario.model.dto.PageableSearchUsuarios;
 import br.jus.tjba.api.push.usuario.model.dto.UsuarioDTO;
+import br.jus.tjba.api.push.usuario.model.dto.UsuarioResponse;
 import br.jus.tjba.api.push.usuario.model.mapper.UsuarioMapper;
 import br.jus.tjba.api.push.usuario.repository.UsuarioRepository;
+import org.springframework.data.domain.Page;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class UsuarioService {
@@ -19,8 +26,15 @@ public class UsuarioService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    public List<Usuario> findAll() {
-        return usuarioRepository.findAll();
+    public Page<UsuarioResponse> findAllPageUsuarios(PageableSearchUsuarios request) {
+        PageRequest pageRequest = PageRequest.of(request.page(), request.size());
+        Page<Usuario> usuariosList = usuarioRepository.findAllPageUsuarios(pageRequest);
+
+        List<UsuarioResponse> usuarioResponses = usuariosList.getContent().stream()
+                .map(UsuarioResponse::new)
+                .collect(Collectors.toList());
+
+        return new PageImpl<>(usuarioResponses, pageRequest, usuariosList.getTotalElements());
     }
 
     public Usuario findById(Long id) {

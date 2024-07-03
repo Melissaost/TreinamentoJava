@@ -1,19 +1,25 @@
 package br.jus.tjba.api.push.usuario.controller;
 
 import br.jus.tjba.api.push.usuario.model.Usuario;
+import br.jus.tjba.api.push.usuario.model.dto.PageableSearchUsuarios;
 import br.jus.tjba.api.push.usuario.model.dto.UsuarioDTO;
 import br.jus.tjba.api.push.usuario.model.dto.UsuarioResponse;
 import br.jus.tjba.api.push.usuario.service.UsuarioService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
+import org.springframework.data.domain.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import java.util.Optional;
+import java.util.List;
+
 
 @RestController
 @RequestMapping("/usuarios")
+@SecurityRequirement(name = "bearer-key")
 public class UsuarioController {
 
     @Autowired
@@ -22,6 +28,12 @@ public class UsuarioController {
     @GetMapping("teste")
     public String teste(){
         return "Ola mundo.";
+    }
+
+    @GetMapping("/listaPaginada")
+    public ResponseEntity<Page<UsuarioResponse>> getAllPageUsuarios(@RequestBody PageableSearchUsuarios request){
+        Page<UsuarioResponse> usuariosList = usuarioService.findAllPageUsuarios(request);
+        return ResponseEntity.ok(usuariosList);
     }
 
     @GetMapping("{id}")

@@ -1,5 +1,6 @@
 package br.jus.tjba.api.push.usuario.model.dto;
 
+import br.jus.tjba.api.push.usuario.model.UsuarioProcessoSistema;
 import br.jus.tjba.api.push.usuario.model.enums.SistemaEnum;
 
 
@@ -8,4 +9,9 @@ public record UsuarioProcessoSistemaDTO(
         SistemaEnum sistema,
         String numeroProcesso
 ) {
+    public UsuarioProcessoSistemaDTO(UsuarioProcessoSistema usuarioProcessoSistema){
+        this(usuarioProcessoSistema.getUsuario().getIdUsuario(),
+                SistemaEnum.valueOf(usuarioProcessoSistema.getSistema().getSigla()),
+                usuarioProcessoSistema.getNumeroProcesso());
+    }
 }
