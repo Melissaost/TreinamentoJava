@@ -4,7 +4,7 @@ import br.jus.tjba.api.push.publicador.dto.UsuarioSistemaDTO;
 import br.jus.tjba.api.push.publicador.model.MensagemPendente;
 import br.jus.tjba.api.push.publicador.service.MensagemPendenteService;
 import br.jus.tjba.api.push.publicador.service.PublicacaoService;
-import org.springframework.data.domain.Page;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -34,8 +34,14 @@ public class MensagemPendenteController {
     }
 
     @PostMapping("/sinalizar")
-    public ResponseEntity<List<UsuarioSistemaDTO>> sinalizar(@RequestParam String siglaSistema, @RequestParam String numeroProcesso) {
-        List<UsuarioSistemaDTO> usuarios = publicacaoService.publicarMensagem(siglaSistema, numeroProcesso);
-        return ResponseEntity.ok(usuarios);
+    @CircuitBreaker(name = "sinalizarUsuario", fallbackMethod = "sinalizarPendenteFallback")
+    public ResponseEntity<String> sinalizar(@RequestParam String siglaSistema, @RequestParam String numeroProcesso, @RequestParam Long idUsuarioSistema) {
+        publicacaoService.publicarMensagem(siglaSistema, numeroProcesso);
+        return ResponseEntity.ok("Sinalizou");
+    }
+
+    public ResponseEntity<String> sinalizarPendenteFallback(String siglaSistema, String numeroProcesso, @RequestParam Long idUsuarioSistema, Exception ex) {
+        publicacaoService.mensagemPendente(numeroProcesso, idUsuarioSistema);
+        return ResponseEntity.ok("Pendente");
     }
 }

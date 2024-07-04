@@ -17,6 +17,7 @@ import java.util.List;
 public class UsuarioSistema {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID_USUARIO_SISTEMA", nullable = false)
     private Long id;
 
     @Column(name = "LOGIN", nullable = false)

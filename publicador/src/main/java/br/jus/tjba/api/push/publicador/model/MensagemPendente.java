@@ -15,6 +15,7 @@ public class MensagemPendente {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID_MENSAGEM_PENDENTE", nullable = false)
     private Long id;
 
     @Column(name = "NUMERO_PROCESSO", nullable = false)
