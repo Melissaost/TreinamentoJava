@@ -1,6 +1,5 @@
 package br.jus.tjba.api.push.publicador.service;
 
-import br.jus.tjba.api.push.publicador.dto.RequestUsuarioSistema;
 import br.jus.tjba.api.push.publicador.dto.UsuarioSistemaDTO;
 import br.jus.tjba.api.push.publicador.http.UsuarioClient;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +18,6 @@ public class PublicacaoService {
     }
 
     public List<UsuarioSistemaDTO> publicarMensagem(String siglaSistema, String numeroProcesso) {
-        RequestUsuarioSistema requestUsuarioSistema = new RequestUsuarioSistema(siglaSistema, numeroProcesso);
         List<UsuarioSistemaDTO> usuarios = usuarioClient.getUsuarios(siglaSistema, numeroProcesso).getBody();
         return usuarios;
     }
