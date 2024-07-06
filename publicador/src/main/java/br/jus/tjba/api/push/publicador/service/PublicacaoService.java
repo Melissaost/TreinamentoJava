@@ -1,6 +1,7 @@
 package br.jus.tjba.api.push.publicador.service;
 
 import br.jus.tjba.api.push.publicador.dto.UsuarioSistemaDTO;
+import br.jus.tjba.api.push.publicador.http.NotificadorClient;
 import br.jus.tjba.api.push.publicador.http.UsuarioClient;
 import br.jus.tjba.api.push.publicador.model.MensagemPendente;
 import br.jus.tjba.api.push.publicador.model.UsuarioSistema;
@@ -16,6 +17,9 @@ public class PublicacaoService {
 
     @Autowired
     private final UsuarioClient usuarioClient;
+
+    @Autowired
+    private NotificadorClient notificadorClient;
 
     @Autowired
     private UsuarioSistemaRepository usuarioSistemaRepository;
@@ -40,5 +44,11 @@ public class PublicacaoService {
         mensagemPendente.setUsuarioSistema(usuarioSistema);
         mensagemPendente.setMensagem("Email não enviado");
         mensagemPendenteRepository.save(mensagemPendente);
+    }
+
+    public String notificar() {
+        String notificar = notificadorClient.notificar();
+        System.out.println(notificar);
+        return notificar;
     }
 }
