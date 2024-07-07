@@ -25,9 +25,6 @@ public class MensagemPendenteController {
     @Autowired
     private PublicacaoService publicacaoService;
 
-    @Autowired
-    private RabbitTemplate rabbitTemplate;
-
     @GetMapping("/all")
     public List<MensagemPendente> findAll() {
         return mensagemPendenteService.findAll();
@@ -46,12 +43,7 @@ public class MensagemPendenteController {
     @PostMapping("/sinalizar")
     @CircuitBreaker(name = "sinalizarUsuario", fallbackMethod = "sinalizarPendenteFallback")
     public ResponseEntity<String> sinalizar(@RequestParam String siglaSistema, @RequestParam String numeroProcesso, @RequestParam Long idUsuarioSistema) {
-        List<UsuarioSistemaDTO> listUsuarios = publicacaoService.publicarMensagem(siglaSistema, numeroProcesso);
-
-        Message msg = new Message(("Notificar usuários. ").getBytes());
-
-        rabbitTemplate.convertAndSend("usuarios.notificar", listUsuarios);
-
+        publicacaoService.publicarMensagem(siglaSistema, numeroProcesso);
         return ResponseEntity.ok("Sinalizou");
     }
 
