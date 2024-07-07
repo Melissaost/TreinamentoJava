@@ -1,5 +1,6 @@
 package br.jus.tjba.api.push.usuario.controller;
 
+import br.jus.tjba.api.push.usuario.dto.UsuarioResponse;
 import br.jus.tjba.api.push.usuario.model.UsuarioProcessoSistema;
 import br.jus.tjba.api.push.usuario.dto.UsuarioProcessoSistemaDTO;
 import br.jus.tjba.api.push.usuario.service.UsuarioProcessoSistemaService;
@@ -18,9 +19,9 @@ public class UsuarioAssociacaoController {
     private UsuarioProcessoSistemaService usuarioProcessoSistemaService;
 
     @PostMapping("/associar")
-    public ResponseEntity<UsuarioProcessoSistema> associarUsuarioAoSistema(@RequestBody UsuarioProcessoSistemaDTO dto) {
+    public ResponseEntity<UsuarioResponse> associarUsuarioAoSistema(@RequestBody UsuarioProcessoSistemaDTO dto) {
         UsuarioProcessoSistema associado = usuarioProcessoSistemaService.associarUsuarioAoSistema(dto);
-        return ResponseEntity.ok(associado);
+        return ResponseEntity.ok(new UsuarioResponse(associado.getUsuario()));
     }
 
     @DeleteMapping("/desassociar-processo/{id}")

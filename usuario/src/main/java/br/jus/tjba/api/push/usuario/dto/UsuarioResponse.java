@@ -1,7 +1,10 @@
 package br.jus.tjba.api.push.usuario.dto;
 
 import br.jus.tjba.api.push.usuario.model.Usuario;
+
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 public record UsuarioResponse(
@@ -16,8 +19,10 @@ public record UsuarioResponse(
                 usuario.getNome(),
                 usuario.getCpf(),
                 new EnderecoDTO(usuario.getEndereco()),
-                usuario.getSistemas().stream()
-                        .map(UsuarioProcessoSistemaDTO::new)
-                        .collect(Collectors.toList()));
+                Optional.ofNullable(usuario.getSistemas())
+                        .map(sistemas -> sistemas.stream()
+                                .map(UsuarioProcessoSistemaDTO::new)
+                                .collect(Collectors.toList()))
+                        .orElse(Collections.emptyList()));
     }
 }

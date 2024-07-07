@@ -46,10 +46,11 @@ public class MensagemPendenteController {
     @PostMapping("/sinalizar")
     @CircuitBreaker(name = "sinalizarUsuario", fallbackMethod = "sinalizarPendenteFallback")
     public ResponseEntity<String> sinalizar(@RequestParam String siglaSistema, @RequestParam String numeroProcesso, @RequestParam Long idUsuarioSistema) {
-        publicacaoService.publicarMensagem(siglaSistema, numeroProcesso);
+        List<UsuarioSistemaDTO> listUsuarios = publicacaoService.publicarMensagem(siglaSistema, numeroProcesso);
 
         Message msg = new Message(("Notificar usuários. ").getBytes());
-        rabbitTemplate.send("usuarios.notificar", msg);
+
+        rabbitTemplate.convertAndSend("usuarios.notificar", listUsuarios);
 
         return ResponseEntity.ok("Sinalizou");
     }
