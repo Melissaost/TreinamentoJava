@@ -2,7 +2,6 @@ package br.jus.tjba.api.push.publicador.service;
 
 import br.jus.tjba.api.push.publicador.dto.UsuarioSistemaDTO;
 import br.jus.tjba.api.push.publicador.dto.UsuariosNotificar;
-import br.jus.tjba.api.push.publicador.http.NotificadorClient;
 import br.jus.tjba.api.push.publicador.http.UsuarioClient;
 import br.jus.tjba.api.push.publicador.model.MensagemPendente;
 import br.jus.tjba.api.push.publicador.model.UsuarioSistema;
@@ -12,7 +11,6 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -21,9 +19,6 @@ public class PublicacaoService {
 
     @Autowired
     private final UsuarioClient usuarioClient;
-
-    @Autowired
-    private NotificadorClient notificadorClient;
 
     @Autowired
     private UsuarioSistemaRepository usuarioSistemaRepository;
@@ -46,20 +41,14 @@ public class PublicacaoService {
         }
     }
 
-    public void mensagemPendente(String numeroProcesso, Long idUsuarioSistema) {
-        UsuarioSistema usuarioSistema = usuarioSistemaRepository.findById(idUsuarioSistema)
-                .orElseThrow(() -> new RuntimeException("Usuário sistema não encontrado com ID: " + idUsuarioSistema));
+    public void mensagemPendente(String siglaSistema, String numeroProcesso) {
+        UsuarioSistema usuarioSistema = usuarioSistemaRepository.findByLogin(siglaSistema)
+                .orElseThrow(() -> new RuntimeException("Usuário sistema não encontrado com login: " + siglaSistema));
         MensagemPendente mensagemPendente = new MensagemPendente();
         mensagemPendente.setNumeroProcesso(numeroProcesso);
         mensagemPendente.setUsuarioSistema(usuarioSistema);
         mensagemPendente.setMensagem("Email não enviado");
         mensagemPendenteRepository.save(mensagemPendente);
-    }
-
-    public String notificar() {
-        String notificar = notificadorClient.notificar();
-        System.out.println(notificar);
-        return notificar;
     }
 
     public static String buildEmailMessage(String nomeUsuario, String numeroProcesso, String siglaSistema) {

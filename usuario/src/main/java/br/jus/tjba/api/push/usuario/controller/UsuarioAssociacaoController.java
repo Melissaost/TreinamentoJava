@@ -5,13 +5,12 @@ import br.jus.tjba.api.push.usuario.model.UsuarioProcessoSistema;
 import br.jus.tjba.api.push.usuario.dto.UsuarioProcessoSistemaDTO;
 import br.jus.tjba.api.push.usuario.service.UsuarioProcessoSistemaService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
-import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/usuario-associacao")
+@RequestMapping("/usuario-processo")
 @SecurityRequirement(name = "bearer-key")
 public class UsuarioAssociacaoController {
 
@@ -24,10 +23,9 @@ public class UsuarioAssociacaoController {
         return ResponseEntity.ok(new UsuarioResponse(associado.getUsuario()));
     }
 
-    @DeleteMapping("/desassociar-processo/{id}")
-    @Transactional
-    public ResponseEntity<?> desassociarProcesso(@PathVariable Long id) {
-        usuarioProcessoSistemaService.desassociarProcesso(id);
+    @DeleteMapping("/desassociar-processo/")
+    public ResponseEntity<?> desassociarProcesso(Long idUsuario, String numProcesso, String siglaSistema) {
+        String delete = usuarioProcessoSistemaService.desassociarProcesso(idUsuario, numProcesso, siglaSistema);
         return ResponseEntity.noContent().build();
     }
 }

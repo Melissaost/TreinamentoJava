@@ -35,11 +35,11 @@ public class Usuario implements UserDetails {
     @Column(name = "CPF", nullable = false, length = 14)
     private String cpf;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "ENDERECO_ID", referencedColumnName = "ID_ENDERECO")
     private Endereco endereco;
 
-    @OneToMany(mappedBy = "usuario")
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<UsuarioProcessoSistema> sistemas;
 
 

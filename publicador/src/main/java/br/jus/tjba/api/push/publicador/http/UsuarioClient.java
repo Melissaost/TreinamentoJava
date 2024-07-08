@@ -12,6 +12,6 @@ import java.util.List;
 @FeignClient("usuario")
 public interface UsuarioClient {
 
-    @RequestMapping(method = RequestMethod.GET, value = "/usuarios/lista-usuario-sistema")
+    @RequestMapping(method = RequestMethod.GET, value = "/usuarios/buscar-associados-processo")
     ResponseEntity<List<UsuarioSistemaDTO>> getUsuarios(@RequestParam String siglaSistema, @RequestParam String numeroProcesso);
 }

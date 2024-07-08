@@ -7,6 +7,7 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -33,7 +34,7 @@ public class UsuarioController {
         return ResponseEntity.ok(usuariosList);
     }
 
-    @GetMapping("/lista-usuario-sistema")
+    @GetMapping("/buscar-associados-processo")
     public ResponseEntity<List<UsuarioSistemaDTO>> getAllUsuariosSistema(@RequestParam String siglaSistema, @RequestParam String numeroProcesso){
         List<UsuarioSistemaDTO> usuariosList = usuarioService.getAllUsuariosSistema(siglaSistema, numeroProcesso);
         return ResponseEntity.ok(usuariosList);
@@ -50,5 +51,16 @@ public class UsuarioController {
         Usuario usuarioSalvo = usuarioService.save(usuario);
         var uri = uriBuilder.path("/usuarios/{id}").buildAndExpand(usuarioSalvo.getIdUsuario()).toUri();
         return ResponseEntity.created(uri).body(new UsuarioResponse(usuarioSalvo));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteUsuario(@PathVariable Long id) {
+        boolean isDeleted = usuarioService.deleteUsuarioAndAssociations(id);
+
+        if (isDeleted) {
+            return ResponseEntity.noContent().build();
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found.");
+        }
     }
 }

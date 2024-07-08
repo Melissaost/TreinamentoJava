@@ -40,7 +40,14 @@ public class UsuarioProcessoSistemaService {
         return ups;
     }
 
-    public void desassociarProcesso(Long id) {
-        usuarioProcessoSistemaRepository.deleteById(id);
+    @Transactional
+    public String desassociarProcesso(Long idUsuario, String numProcesso, String siglaSistema) {
+        UsuarioProcessoSistema usuarioProcessoSistema = usuarioProcessoSistemaRepository.findByUsuarioProcessoSistema(idUsuario, numProcesso, siglaSistema);
+        if(usuarioProcessoSistema != null) {
+            usuarioProcessoSistemaRepository.delete(usuarioProcessoSistema);
+            return "Removido com sucesso.";
+        }else {
+            return "Associação não encontrada.";
+        }
     }
 }

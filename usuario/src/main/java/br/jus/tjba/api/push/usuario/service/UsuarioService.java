@@ -4,6 +4,7 @@ import br.jus.tjba.api.push.usuario.dto.*;
 import br.jus.tjba.api.push.usuario.model.Usuario;
 import br.jus.tjba.api.push.usuario.model.mapper.UsuarioMapper;
 import br.jus.tjba.api.push.usuario.repository.UsuarioRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageImpl;
@@ -44,12 +45,18 @@ public class UsuarioService {
         return usuarioRepository.save(usuario);
     }
 
-    public void deleteById(Long id) {
-        usuarioRepository.deleteById(id);
-    }
-
     public List<UsuarioSistemaDTO> getAllUsuariosSistema(String siglaSistema, String numeroProcesso) {
         List<Usuario> usuarioList = usuarioRepository.findBySistemaAndProcesso(siglaSistema, numeroProcesso);
         return usuarioList.stream().map(UsuarioSistemaDTO::new).toList();
+    }
+
+    @Transactional
+    public boolean deleteUsuarioAndAssociations(Long idUsuario) {
+        if (usuarioRepository.existsById(idUsuario)) {
+            usuarioRepository.deleteById(idUsuario);
+            return true;
+        } else {
+            return false;
+        }
     }
 }
