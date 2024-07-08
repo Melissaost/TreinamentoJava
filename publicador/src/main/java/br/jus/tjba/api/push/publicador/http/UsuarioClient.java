@@ -1,5 +1,6 @@
 package br.jus.tjba.api.push.publicador.http;
 
+import br.jus.tjba.api.push.publicador.config.feign.FeignConfig;
 import br.jus.tjba.api.push.publicador.dto.UsuarioSistemaDTO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
@@ -9,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
-@FeignClient("usuario")
+@FeignClient(name = "usuario", configuration = FeignConfig.class)
 public interface UsuarioClient {
 
     @RequestMapping(method = RequestMethod.GET, value = "/usuarios/buscar-associados-processo")

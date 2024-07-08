@@ -1,4 +1,4 @@
-package br.jus.tjba.api.push.publicador.amqp;
+package br.jus.tjba.api.push.publicador.config.amqp;
 
 import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.core.QueueBuilder;
