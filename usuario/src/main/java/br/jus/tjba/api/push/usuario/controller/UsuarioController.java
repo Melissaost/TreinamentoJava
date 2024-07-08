@@ -53,6 +53,12 @@ public class UsuarioController {
         return ResponseEntity.created(uri).body(new UsuarioResponse(usuarioSalvo));
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<?> atualizarUsuario(@PathVariable Long id, @RequestBody @Valid UsuarioDTOAtualizacao usuarioAtualizado) {
+        Usuario usuario = usuarioService.atualizar(id, usuarioAtualizado);
+        return ResponseEntity.ok(new UsuarioResponse(usuario));
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteUsuario(@PathVariable Long id) {
         boolean isDeleted = usuarioService.deleteUsuarioAndAssociations(id);

@@ -9,12 +9,12 @@ import org.springframework.data.domain.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -43,6 +43,13 @@ public class UsuarioService {
     public Usuario save(UsuarioDTO usuarioDTO) {
         Usuario usuario = UsuarioMapper.mapUsuarioDTOToUsuario(usuarioDTO, passwordEncoder);
         return usuarioRepository.save(usuario);
+    }
+
+    public Usuario atualizar(Long id, UsuarioDTOAtualizacao usuarioDTO) {
+        Usuario usuarioExistente = usuarioRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Usuário sistema não encontrado com o id: " + id));
+        UsuarioMapper.updateUsuarioFromDTO(usuarioExistente, usuarioDTO, passwordEncoder);
+        return usuarioRepository.save(usuarioExistente);
     }
 
     public List<UsuarioSistemaDTO> getAllUsuariosSistema(String siglaSistema, String numeroProcesso) {
