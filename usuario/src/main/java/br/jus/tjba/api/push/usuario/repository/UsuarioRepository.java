@@ -29,4 +29,6 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
             "AND s.SIGLA = :siglaSistema " +
             "ORDER BY NOME", nativeQuery = true)
     List<Usuario> findBySistemaAndProcesso(String siglaSistema, String numeroProcesso);
+
+    boolean existsByLogin(String login);
 }

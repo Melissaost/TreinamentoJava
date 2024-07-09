@@ -5,6 +5,7 @@ import br.jus.tjba.api.push.usuario.model.Usuario;
 import br.jus.tjba.api.push.usuario.model.mapper.UsuarioMapper;
 import br.jus.tjba.api.push.usuario.repository.UsuarioRepository;
 import jakarta.transaction.Transactional;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageImpl;
@@ -41,6 +42,9 @@ public class UsuarioService {
     }
 
     public Usuario save(UsuarioDTO usuarioDTO) {
+        if (usuarioRepository.existsByLogin(usuarioDTO.login())) {
+            throw new DataIntegrityViolationException("O login '" + usuarioDTO.login() + "' já está em uso. Por favor, escolha outro login.");
+        }
         Usuario usuario = UsuarioMapper.mapUsuarioDTOToUsuario(usuarioDTO, passwordEncoder);
         return usuarioRepository.save(usuario);
     }

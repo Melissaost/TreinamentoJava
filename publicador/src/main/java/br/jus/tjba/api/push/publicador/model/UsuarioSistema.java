@@ -20,7 +20,7 @@ public class UsuarioSistema {
     @Column(name = "ID_USUARIO_SISTEMA", nullable = false)
     private Long id;
 
-    @Column(name = "LOGIN", nullable = false)
+    @Column(name = "LOGIN", nullable = false, unique = true)
     private String login;
 
     @Column(name = "CHAVE_ACESSO", nullable = false)

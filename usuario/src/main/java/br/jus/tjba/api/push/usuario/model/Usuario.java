@@ -23,7 +23,7 @@ public class Usuario implements UserDetails {
     @Column(name = "ID_USUARIO", nullable = false)
     private Long idUsuario;
 
-    @Column(name = "LOGIN", nullable = false)
+    @Column(name = "LOGIN", nullable = false, unique = true)
     private String login;
 
     @Column(name = "SENHA", nullable = false)
