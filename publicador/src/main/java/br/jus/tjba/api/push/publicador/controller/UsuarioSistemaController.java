@@ -1,8 +1,11 @@
 package br.jus.tjba.api.push.publicador.controller;
 
+import br.jus.tjba.api.push.publicador.dto.CriarUsuarioSistemaDTO;
+import br.jus.tjba.api.push.publicador.dto.UsuarioSistemaDTO;
 import br.jus.tjba.api.push.publicador.model.UsuarioSistema;
 import br.jus.tjba.api.push.publicador.service.UsuarioSistemaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,7 +23,8 @@ public class UsuarioSistemaController {
     }
 
     @PostMapping
-    public UsuarioSistema save(@RequestBody UsuarioSistema usuarioSistema) {
-        return usuarioSistemaService.save(usuarioSistema);
+    public ResponseEntity<?> save(@RequestBody CriarUsuarioSistemaDTO usuarioSistema) {
+        UsuarioSistema usuarioCriado = usuarioSistemaService.save(usuarioSistema);
+        return ResponseEntity.ok(usuarioCriado.getLogin());
     }
 }
