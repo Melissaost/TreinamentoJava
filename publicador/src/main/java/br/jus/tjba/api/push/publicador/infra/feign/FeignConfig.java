@@ -1,4 +1,4 @@
-package br.jus.tjba.api.push.publicador.config.feign;
+package br.jus.tjba.api.push.publicador.infra.feign;
 
 import feign.RequestInterceptor;
 import feign.RequestTemplate;

@@ -7,6 +7,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UsuarioSistemaService {
@@ -20,7 +21,7 @@ public class UsuarioSistemaService {
 
     public UsuarioSistema save(UsuarioSistema usuarioSistema) {
         if (usuarioSistemaRepository.existsByLogin(usuarioSistema.getLogin())) {
-            throw new DataIntegrityViolationException("O login '" + usuarioSistema.getLogin() + "' já está em uso. Por favor, escolha outro login.");
+            throw new DataIntegrityViolationException("Data integrity violation");
         }
         return usuarioSistemaRepository.save(usuarioSistema);
     }

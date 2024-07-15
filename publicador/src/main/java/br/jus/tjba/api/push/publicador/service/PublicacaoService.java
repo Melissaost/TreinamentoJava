@@ -42,7 +42,7 @@ public class PublicacaoService {
     }
 
     public void mensagemPendente(String siglaSistema, String numeroProcesso) {
-        UsuarioSistema usuarioSistema = usuarioSistemaRepository.findByLogin(siglaSistema)
+        UsuarioSistema usuarioSistema = usuarioSistemaRepository.findByLoginUsuarioSistema(siglaSistema)
                 .orElseThrow(() -> new RuntimeException("Usuário sistema não encontrado com login: " + siglaSistema));
         MensagemPendente mensagemPendente = new MensagemPendente();
         mensagemPendente.setNumeroProcesso(numeroProcesso);

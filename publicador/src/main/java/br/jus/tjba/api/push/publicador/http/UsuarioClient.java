@@ -1,6 +1,6 @@
 package br.jus.tjba.api.push.publicador.http;
 
-import br.jus.tjba.api.push.publicador.config.feign.FeignConfig;
+import br.jus.tjba.api.push.publicador.infra.feign.FeignConfig;
 import br.jus.tjba.api.push.publicador.dto.UsuarioSistemaDTO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
