@@ -3,6 +3,7 @@ package br.jus.tjba.api.push.usuario.model.mapper;
 import br.jus.tjba.api.push.usuario.dto.UsuarioDTOAtualizacao;
 import br.jus.tjba.api.push.usuario.model.Usuario;
 import br.jus.tjba.api.push.usuario.dto.UsuarioDTO;
+import br.jus.tjba.api.push.usuario.util.MapperUtils;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Optional;
@@ -22,9 +23,9 @@ public interface UsuarioMapper {
     }
 
     static void updateUsuarioFromDTO(Usuario usuarioExistente, UsuarioDTOAtualizacao usuarioDTO, PasswordEncoder passwordEncoder) {
-        Optional.ofNullable(usuarioDTO.nome()).ifPresent(usuarioExistente::setNome);
+        MapperUtils.setIfNotEmpty(usuarioExistente::setNome, usuarioDTO.nome());
         usuarioExistente.setEndereco(EnderecoMapper.updateEnderecoFromDto(usuarioExistente.getEndereco(), usuarioDTO.endereco()));
-        if (!usuarioDTO.senha().isEmpty()) {
+        if (!usuarioDTO.senha().trim().isEmpty()) {
             String senhaCriptografada = passwordEncoder.encode(usuarioDTO.senha());
             usuarioExistente.setSenha(senhaCriptografada);
         }

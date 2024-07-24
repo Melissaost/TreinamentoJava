@@ -28,7 +28,7 @@ public class UsuarioController {
         return "Ola mundo.";
     }
 
-    @GetMapping("/listaPaginada")
+    @PostMapping("/listaPaginada")
     public ResponseEntity<Page<UsuarioResponse>> getAllPageUsuarios(@RequestBody PageableSearchUsuarios request){
         Page<UsuarioResponse> usuariosList = usuarioService.findAllPageUsuarios(request);
         return ResponseEntity.ok(usuariosList);
@@ -54,7 +54,7 @@ public class UsuarioController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> atualizarUsuario(@PathVariable Long id, @RequestBody @Valid UsuarioDTOAtualizacao usuarioAtualizado) {
+    public ResponseEntity<?> atualizarUsuario(@PathVariable Long id, @RequestBody UsuarioDTOAtualizacao usuarioAtualizado) {
         Usuario usuario = usuarioService.atualizar(id, usuarioAtualizado);
         return ResponseEntity.ok(new UsuarioResponse(usuario));
     }

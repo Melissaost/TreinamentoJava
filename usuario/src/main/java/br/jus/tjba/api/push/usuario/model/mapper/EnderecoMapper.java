@@ -2,6 +2,7 @@ package br.jus.tjba.api.push.usuario.model.mapper;
 
 import br.jus.tjba.api.push.usuario.model.Endereco;
 import br.jus.tjba.api.push.usuario.dto.EnderecoDTO;
+import br.jus.tjba.api.push.usuario.util.MapperUtils;
 
 import java.util.Optional;
 
@@ -19,12 +20,12 @@ public interface EnderecoMapper {
     }
 
     static Endereco updateEnderecoFromDto(Endereco enderecoExistente, EnderecoDTO dto) {
-        Optional.ofNullable(dto.rua()).ifPresent(enderecoExistente::setRua);
-        Optional.ofNullable(dto.uf()).ifPresent(enderecoExistente::setUf);
-        Optional.ofNullable(dto.cidade()).ifPresent(enderecoExistente::setCidade);
-        Optional.ofNullable(dto.bairro()).ifPresent(enderecoExistente::setBairro);
-        Optional.ofNullable(dto.cep()).ifPresent(enderecoExistente::setCep);
-        Optional.ofNullable(dto.numero()).ifPresent(enderecoExistente::setNumero);
+        MapperUtils.setIfNotEmpty(enderecoExistente::setRua, dto.rua());
+        MapperUtils.setIfNotEmpty(enderecoExistente::setBairro, dto.bairro());
+        MapperUtils.setIfNotEmpty(enderecoExistente::setNumero, dto.numero());
+        MapperUtils.setIfNotEmpty(enderecoExistente::setCidade, dto.cidade());
+        MapperUtils.setIfNotEmpty(enderecoExistente::setUf, dto.uf());
+        MapperUtils.setIfNotEmpty(enderecoExistente::setCep, dto.cep());
 
         return enderecoExistente;
     }
